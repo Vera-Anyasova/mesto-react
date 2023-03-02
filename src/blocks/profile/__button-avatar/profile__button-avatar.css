@@ -1,7 +1,6 @@
 .profile__button-avatar {
-  background: url(../../../images/edit.svg) no-repeat center rgba(0, 0, 0, 0.8);
-  width: 26px;
-  height: 26px;
+  background: url(../../../images/edit.svg) no-repeat center/26px
+    rgba(0, 0, 0, 0.8);
   position: absolute;
   top: 0px;
   left: 0px;
