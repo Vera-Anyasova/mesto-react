@@ -8,6 +8,7 @@ function PopupWithForm({
   isOpen,
   onClose,
   children,
+  onSubmit,
 }) {
   return (
     <div className={`popup popup_${type} ${isOpen ? "popup_opened" : ""}`}>
@@ -18,7 +19,11 @@ function PopupWithForm({
           aria-label="Закрыть форму."
           onClick={onClose}
         ></button>
-        <form className={`form form-${name}`} name={`popup-form-${name}`}>
+        <form
+          className={`form form-${name}`}
+          name={`popup-form-${name}`}
+          onSubmit={onSubmit}
+        >
           <h2 className="form__heading">{title}</h2>
           <label className="form__field">{children}</label>
           <button
