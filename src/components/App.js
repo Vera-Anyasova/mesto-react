@@ -11,17 +11,14 @@ import AddPlacePopup from "./AddPlacePopup";
 import PopupWithConfirmation from "./PopupWithConfirmation";
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isPopupWithConfirmationOpen, setPopupWithConfirmationOpen] =
-    React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isPopupWithConfirmationOpen, setPopupWithConfirmationOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const [card, setCard] = React.useState('');
+  const [card, setCard] = useState('');
 
   useEffect(() => {
     api
@@ -48,18 +45,26 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
       setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
+      })
+      .catch((err) => {
+      console.log(err);
+      });
   }
 
   function handleCardDelete(card) {
     const isOwn = card.owner._id === currentUser._id;
 
-    api.deleteCard(card._id, isOwn).then(() => {
+    api.deleteCard(card._id, isOwn)
+      .then(() => {
       setCards((cards) => cards.filter((c) => c._id !== card._id));
-    });
-    closeAllPopups();
+      closeAllPopups();
+      })
+      .catch((err) => {
+      console.log(err);
+      });
   }
 
   function handleEditAvatarClick() {
